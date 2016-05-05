@@ -38,7 +38,35 @@ You will see this log section.  Copy this password:
 2016-05-05T17:25:49.011877088Z *************************************************************
 ```
 
-#### 4) Go to this URL in your web browser `http://localhost`.  
+#### 4) Go to this URL in your web browser  
+Go to `http://localhost` (or whatever the IP of the server is)
+
 You will need the password to go through the setup.
 
 # Backup
+
+## Manual
+Just backup the folder `/opt/jenkins_home`.  If you need to restore, just restore all of the contents to this location and start up Jenkins again.
+
+## To S3
+You can backup the files to AWS S3 by running this Docker command:
+
+```
+docker run --env aws_key=<YOUR AWS KEY> \
+--env aws_secret=<YOUR AWS SECRET> \
+--env cmd=sync-local-to-s3 \
+--env DEST_S3=s3://my.backup.bucket/jenkins_home/  \
+-v /opt/jenkins_home:/opt/src/$(/bin/date +\%Y\%m\%d) \ garland/docker-s3cmd
+```
+
+## cron to backup to S3
+You can also setup a cron job that uses the S3 backup on a schedule.
+
+1) Edit your crontab
+
+2) Add this entry in
+```
+0 22 * * *      /usr/bin/docker run --env aws_key=<YOUR AWS KEY> --env aws_secret=<YOUR AWS SECRET> --env cmd=sync-local-to-s3 --env DEST_S3=s3://my.backup.bucket/jenkins_home/  -v /opt/jenkins_home:/opt/src/$(/bin/date +\%Y\%m\%d) garland/docker-s3cmd
+```
+
+This will perform a backup nightly.
