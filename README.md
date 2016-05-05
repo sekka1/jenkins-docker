@@ -1,4 +1,9 @@
 # jenkins-docker
+[![GitHub forks](https://img.shields.io/github/forks/sekka1/jenkins-docker.svg)](https://github.com/sekka1/jenkins-docker/network)
+[![GitHub stars](https://img.shields.io/github/stars/sekka1/jenkins-docker.svg)](https://github.com/sekka1/jenkins-docker/stargazers)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/sekka1/jenkins-docker.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
+
+
 Running Jenkins 2.0 in Production with Docker.  
 
 Nothing to install, the only prerequisite is that you have Docker installed on the server.  
