@@ -1,0 +1,17 @@
+[Unit]
+Description=Jenkins
+After=docker.service
+
+[Service]
+Restart=always
+RestartSec=30s
+ExecStartPre=-/usr/bin/docker kill jenkins
+ExecStartPre=-/usr/bin/docker rm jenkins
+ExecStartPre=/usr/bin/docker pull jenkins:2.0-alpine
+ExecStart=/usr/bin/docker run \
+          --name jenkins \
+          -p 80:8080 \
+          -p 50000:50000 \
+          -v /opt/jenkins_home:/var/jenkins_home \
+          jenkins:2.0-alpine
+ExecStop=/usr/bin/docker stop jenkins
