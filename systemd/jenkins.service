@@ -1,8 +1,10 @@
 [Unit]
 Description=Jenkins
 After=docker.service
+Requires=docker.service
 
 [Service]
+TimeoutStartSec=0
 Restart=always
 RestartSec=30s
 ExecStartPre=-/usr/bin/docker kill jenkins
@@ -15,3 +17,6 @@ ExecStart=/usr/bin/docker run \
           -v /opt/jenkins_home:/var/jenkins_home \
           jenkins:2.0-alpine
 ExecStop=/usr/bin/docker stop jenkins
+
+[Install]
+WantedBy=multi-user.target
